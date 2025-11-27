@@ -19,25 +19,29 @@ jobs:
           command: buildozer android debug
           buildozer_version: stable
 
+      - name: List bin directory
+        run: ls -la bin/ || echo "bin directory not found"
+
       - name: Upload APK as artifact
         uses: actions/upload-artifact@v4
         with:
           name: CyberGuardian-APK
           path: bin/*.apk
 
-      - name: Create GitHub Release
-        id: create_release
+      - name: Get APK filename
+        id: get_apk
+        run: |
+          APK_PATH=$(find bin -name "*.apk" -type f | head -n 1)
+          echo "apk_path=$APK_PATH" >> $GITHUB_OUTPUT
+          echo "APK found at: $APK_PATH"
+
+      - name: Create GitHub Release and Upload APK
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ github.run_number }}
           name: Build ${{ github.run_number }}
           draft: false
           prerelease: false
-
-      - name: Upload APK to Release
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: bin/*.apk
-          asset_name: CyberGuardian.apk
-          asset_content_type: application/vnd.android.package-archive
+          files: ${{ steps.get_apk.outputs.apk_path }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
