@@ -301,5 +301,5 @@ def tool_fb_privacy_check():
     return jsonify({"checklist": checklist})
 
 if __name__ == '__main__':
-    print("🚀 CyberGuardian ADVANCED Server Running...")
+    print("CyberGuardian ADVANCED Server Running...")
     app.run(host='0.0.0.0', port=5000)
