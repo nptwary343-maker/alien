@@ -18,6 +18,7 @@ jobs:
         with:
           command: buildozer android debug
           buildozer_version: stable
+          repository_root: .
 
       - name: List bin directory
         run: ls -la bin/ || echo "bin directory not found"
