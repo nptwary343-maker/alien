@@ -1,0 +1,404 @@
+:root {
+    --bg-color: #050505;
+    --primary: #00ff41;
+    /* Hacker Green */
+    --secondary: #00f3ff;
+    /* Cyber Blue */
+    --danger: #ff003c;
+    /* Cyber Red */
+    --card-bg: rgba(20, 20, 20, 0.9);
+    --glass: rgba(255, 255, 255, 0.05);
+    --font-mono: 'Share Tech Mono', monospace;
+    --font-ui: 'Rajdhani', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: #fff;
+    font-family: var(--font-ui);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#app-container {
+    width: 100%;
+    height: 100%;
+    max-width: 480px;
+    /* Mobile max width */
+    background: var(--bg-color);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 50px rgba(0, 255, 65, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Status Bar */
+.status-bar {
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--primary);
+    border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 100;
+}
+
+/* Screens */
+.screen {
+    flex: 1;
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+.screen.active {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Menu */
+.hero-logo {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.shield-icon {
+    font-size: 60px;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 10px var(--primary));
+}
+
+h1 {
+    font-family: var(--font-mono);
+    font-size: 42px;
+    margin: 0;
+    line-height: 1;
+    background: linear-gradient(to bottom, #fff, #aaa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    color: var(--primary);
+    font-family: var(--font-mono);
+    letter-spacing: 4px;
+    font-size: 14px;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: auto;
+}
+
+.menu-btn {
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-btn:active {
+    transform: scale(0.95);
+    background: rgba(0, 255, 65, 0.1);
+}
+
+.menu-btn .icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.menu-btn .label {
+    font-family: var(--font-mono);
+    font-size: 14px;
+}
+
+.menu-btn.locked {
+    opacity: 0.5;
+    filter: grayscale(1);
+    border-color: #333;
+}
+
+/* Stats */
+.player-stats {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.stat-box {
+    flex: 1;
+    background: var(--glass);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 3px solid var(--secondary);
+}
+
+.stat-box .label {
+    display: block;
+    font-size: 10px;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.stat-box .value {
+    font-family: var(--font-mono);
+    font-size: 20px;
+    color: var(--secondary);
+}
+
+/* Module Header */
+.module-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-size: 24px;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+h2 {
+    margin: 0;
+    font-family: var(--font-mono);
+    color: var(--secondary);
+    text-transform: uppercase;
+}
+
+/* Phishing Game */
+.card {
+    background: #fff;
+    color: #000;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.email-header {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+}
+
+.email-header .from {
+    font-weight: bold;
+    color: #555;
+}
+
+.email-body {
+    font-family: sans-serif;
+    line-height: 1.4;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+}
+
+.action-btn {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-family: var(--font-mono);
+    cursor: pointer;
+}
+
+.action-btn.deny {
+    background: var(--danger);
+    color: #fff;
+}
+
+.action-btn.accept {
+    background: var(--primary);
+    color: #000;
+}
+
+/* Password Game */
+.terminal-output {
+    background: #000;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    font-family: var(--font-mono);
+    padding: 15px;
+    height: 150px;
+    overflow-y: auto;
+    font-size: 12px;
+    margin-bottom: 20px;
+    box-shadow: inset 0 0 20px rgba(0, 255, 65, 0.2);
+}
+
+.challenge-box {
+    text-align: center;
+}
+
+.option-btn {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 15px;
+    background: #222;
+    border: 1px solid #444;
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.option-btn:hover {
+    border-color: var(--secondary);
+}
+
+/* Firewall Game */
+.firewall-area {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.network-grid {
+    flex: 1;
+    background:
+        linear-gradient(rgba(0, 255, 65, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 65, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    position: relative;
+    border: 1px solid #333;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.packet {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: top 2s linear;
+    cursor: pointer;
+}
+
+.packet.safe {
+    background: var(--secondary);
+    box-shadow: 0 0 10px var(--secondary);
+}
+
+.packet.malicious {
+    background: var(--danger);
+    box-shadow: 0 0 10px var(--danger);
+}
+
+.feedback {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+    height: 20px;
+}
+
+.feedback.correct {
+    color: var(--primary);
+}
+
+.feedback.wrong {
+    color: var(--danger);
+}
+
+/* Terminal Simulator */
+.terminal-area {
+    display: flex;
+    flex-direction: column;
+    background: #111;
+    border: 1px solid #333;
+    padding: 10px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 14px;
+    height: 100%;
+}
+
+.term-output {
+    flex: 1;
+    overflow-y: auto;
+    color: #ccc;
+    margin-bottom: 10px;
+}
+
+.term-output div {
+    margin-bottom: 2px;
+    word-break: break-all;
+}
+
+.term-output .cmd-response {
+    color: var(--primary);
+}
+
+.term-output .cmd-error {
+    font-weight: bold;
+}
+
+#term-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+}
