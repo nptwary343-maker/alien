@@ -69,109 +69,60 @@
                                     <span class="label">Firewall Ops</span>
                                 </button>
                                 <button class="menu-btn" onclick="game.startModule('terminal')">
-                                    <span class="icon">💻</span>
-                                    <span class="label">Real Terminal</span>
-                                </button>
-                                <button class="menu-btn" onclick="game.startModule('python')">
-                                    <span class="icon">🐍</span>
-                                    <span class="label">Python Lab</span>
-                                </button>
-                                <button class="menu-btn" onclick="game.startModule('protools')">
-                                    <span class="icon">🛠️</span>
-                                    <span class="label">Pro Tools</span>
-                                </button>
+                                    (Swipe Right)</button>
                             </div>
+                            <div class="feedback" id="phishing-feedback"></div>
+                    </div>
+        </section>
 
-                            <div class="player-stats">
-                                <div class="stat-box">
-                                    <span class="label">RANK</span>
-                                    <span class="value" id="player-rank">NOOB</span>
-                                </div>
-                                <div class="stat-box">
-                                    <span class="label">XP</span>
-                                    <span class="value" id="player-xp">0</span>
-                                </div>
-                            </div>
-                        </section>
+        <!-- Password Module -->
+        <section id="screen-password" class="screen">
+            <div class="module-header">
+                <button class="back-btn" onclick="game.showMenu()">←</button>
+                <h2>Password Strength</h2>
+            </div>
+            <div class="game-area">
+                <div class="terminal-output" id="password-terminal">
+                    > INITIATING BRUTE FORCE SIMULATION...
+                    > TARGET: Identify weak patterns.
+                </div>
+                <div class="challenge-box">
+                    <p>Which password is stronger?</p>
+                    <button class="option-btn" id="pass-opt-1" onclick="passwordGame.check(1)">P@ssw0rd1</button>
+                    <button class="option-btn" id="pass-opt-2" onclick="passwordGame.check(2)">Tr0ub4dor&3</button>
+                </div>
+                <div class="feedback" id="password-feedback"></div>
+            </div>
+        </section>
 
-                        <!-- Phishing Module -->
-                        <section id="screen-phishing" class="screen">
-                            <div class="module-header">
-                                <button class="back-btn" onclick="game.showMenu()">←</button>
-                                <h2>Phishing Detector</h2>
-                            </div>
-                            <div class="game-area">
-                                <div id="email-card" class="card">
-                                    <div class="email-header">
-                                        <span class="from">From: <span
-                                                id="email-sender">support@g0ogle.com</span></span>
-                                        <span class="subject">Subject: <span id="email-subject">Security
-                                                Alert</span></span>
-                                    </div>
-                                    <div class="email-body" id="email-body">
-                                        Click here to reset your password immediately.
-                                    </div>
-                                </div>
-                                <div class="controls">
-                                    <button class="action-btn deny" onclick="phishingGame.decide(false)">SCAM (Swipe
-                                        Left)</button>
-                                    <button class="action-btn accept" onclick="phishingGame.decide(true)">LEGIT
-                                        (Swipe Right)</button>
-                                </div>
-                                <div class="feedback" id="phishing-feedback"></div>
-                            </div>
-                        </section>
+        <!-- Firewall Module -->
+        <section id="screen-firewall" class="screen">
+            <div class="module-header">
+                <button class="back-btn" onclick="game.showMenu()">←</button>
+                <h2>Firewall Defender</h2>
+            </div>
+            <div class="game-area firewall-area">
+                <div class="network-grid" id="firewall-grid">
+                    <!-- Packets will appear here -->
+                </div>
+                <div class="firewall-controls">
+                    <p>Tap malicious packets (RED) to block!</p>
+                    <div class="score-display">Score: <span id="fw-score">0</span></div>
+                </div>
+            </div>
+        </section>
 
-                        <!-- Password Module -->
-                        <section id="screen-password" class="screen">
-                            <div class="module-header">
-                                <button class="back-btn" onclick="game.showMenu()">←</button>
-                                <h2>Password Strength</h2>
-                            </div>
-                            <div class="game-area">
-                                <div class="terminal-output" id="password-terminal">
-                                    > INITIATING BRUTE FORCE SIMULATION...
-                                    > TARGET: Identify weak patterns.
-                                </div>
-                                <div class="challenge-box">
-                                    <p>Which password is stronger?</p>
-                                    <button class="option-btn" id="pass-opt-1"
-                                        onclick="passwordGame.check(1)">P@ssw0rd1</button>
-                                    <button class="option-btn" id="pass-opt-2"
-                                        onclick="passwordGame.check(2)">Tr0ub4dor&3</button>
-                                </div>
-                                <div class="feedback" id="password-feedback"></div>
-                            </div>
-                        </section>
+        <!-- Terminal Module -->
+        <section id="screen-terminal" class="screen">
+            <div class="module-header">
+                <button class="back-btn" onclick="game.showMenu()">←</button>
+                <h2>Root Terminal</h2>
+            </div>
+            <div class="game-area terminal-area">
+                <div id="term-output" class="term-output">
+                    <div>Kali Linux Rolling [Version 2025.1]</div>
+                    <div>(c) CyberGuardian Sim. Type 'help' for commands.</div>
+                    <br>
+</body>
 
-                        <!-- Firewall Module -->
-                        <section id="screen-firewall" class="screen">
-                            <div class="module-header">
-                                <button class="back-btn" onclick="game.showMenu()">←</button>
-                                <h2>Firewall Defender</h2>
-                            </div>
-                            <div class="game-area firewall-area">
-                                <div class="network-grid" id="firewall-grid">
-                                    <!-- Packets will appear here -->
-                                </div>
-                                <div class="firewall-controls">
-                                    <p>Tap malicious packets (RED) to block!</p>
-                                    <div class="score-display">Score: <span id="fw-score">0</span></div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <!-- Terminal Module -->
-                        <section id="screen-terminal" class="screen">
-                            <div class="module-header">
-                                <button class="back-btn" onclick="game.showMenu()">←</button>
-                                <h2>Root Terminal</h2>
-                            </div>
-                            <div class="game-area terminal-area">
-                                <div id="term-output" class="term-output">
-                                    <div>Kali Linux Rolling [Version 2025.1]</div>
-                                    <div>(c) CyberGuardian Sim. Type 'help' for commands.</div>
-                                    <br>
-                </body>
-
-                </html>
+</html>

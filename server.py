@@ -236,6 +236,79 @@ print("Stopped.")"""
 
     return jsonify({"script": script})
 
+# --- FACEBOOK SECURITY TOOLS (EDUCATIONAL) ---
+
+@app.route('/tool/fb_phish_check', methods=['POST'])
+def tool_fb_phish_check():
+    url = request.json.get('url', '').lower()
+    risk = "SAFE"
+    reasons = []
+    
+    suspicious_domains = ['faceb00k', 'facbook', 'login-verify', 'secure-account', 'fb-update']
+    if any(s in url for s in suspicious_domains):
+        risk = "CRITICAL"
+        reasons.append("Suspicious domain spoofing detected")
+    if "facebook.com" not in url and "fb.com" not in url:
+        risk = "HIGH"
+        reasons.append("Not an official Facebook domain")
+    if len(url) > 50:
+        risk = "MEDIUM"
+        reasons.append("Unusually long URL length")
+        
+    return jsonify({"url": url, "risk": risk, "reasons": reasons})
+
+@app.route('/tool/fb_pass_audit', methods=['POST'])
+def tool_fb_pass_audit():
+    pwd = request.json.get('password', '')
+    score = 0
+    feedback = []
+    
+    if len(pwd) >= 12: score += 1
+    else: feedback.append("Too short (aim for 12+ chars)")
+    
+    if re.search(r"[A-Z]", pwd): score += 1
+    else: feedback.append("Missing uppercase letter")
+    
+    if re.search(r"[0-9]", pwd): score += 1
+    else: feedback.append("Missing number")
+    
+    if re.search(r"[!@#$%^&*]", pwd): score += 1
+    else: feedback.append("Missing special character")
+    
+    if "facebook" in pwd.lower() or "password" in pwd.lower():
+        score = 0
+        feedback = ["Contains common dictionary words"]
+        
+    return jsonify({"score": score, "max_score": 4, "feedback": feedback})
+
+@app.route('/tool/fb_breach_check', methods=['POST'])
+def tool_fb_breach_check():
+    # Simulated breach check
+    identity = request.json.get('identity', '')
+    breached = hash(identity) % 5 == 0 # 20% chance of "breach" for demo
+    return jsonify({
+        "identity": identity,
+        "found": breached,
+        "source": "Simulated Dark Web Database" if breached else None
+    })
+
+@app.route('/tool/fb_2fa_sim', methods=['GET'])
+def tool_fb_2fa_sim():
+    # Simulate generating a 2FA code
+    import random
+    code = f"{random.randint(0,999999):06d}"
+    return jsonify({"code": code, "expiry": "30 seconds"})
+
+@app.route('/tool/fb_privacy_check', methods=['GET'])
+def tool_fb_privacy_check():
+    checklist = [
+        {"id": 1, "task": "Set 'Who can see your future posts?' to Friends", "status": "Pending"},
+        {"id": 2, "task": "Review 'Apps and Websites' permissions", "status": "Pending"},
+        {"id": 3, "task": "Enable 'Profile Picture Guard'", "status": "Pending"},
+        {"id": 4, "task": "Hide 'Friends List' from public", "status": "Pending"}
+    ]
+    return jsonify({"checklist": checklist})
+
 if __name__ == '__main__':
     print("🚀 CyberGuardian ADVANCED Server Running...")
     app.run(host='0.0.0.0', port=5000)

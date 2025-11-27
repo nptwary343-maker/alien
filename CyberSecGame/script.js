@@ -408,20 +408,67 @@ const proTools = {
             }
         } catch { out.innerText = 'Connection Error.'; }
     },
-    async runScriptGen() {
-        const type = document.getElementById('script-type').value;
-        const target = document.getElementById('script-target').value;
-        const out = document.getElementById('script-output');
-        out.value = '# Generating script...';
+    async runFbPhish() {
+        const url = document.getElementById('fb-phish-url').value;
+        const out = document.getElementById('fb-phish-out');
+        out.innerText = "Analyzing...";
         try {
-            const res = await fetch('http://localhost:5000/tool/scriptgen', {
+            const res = await fetch('http://localhost:5000/tool/fb_phish_check', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ type, target })
+                body: JSON.stringify({ url })
             });
             const data = await res.json();
-            out.value = data.script;
-        } catch { out.value = '# Connection Error.'; }
+            out.innerHTML = `Risk: <b>${data.risk}</b><br>${data.reasons.join(', ')}`;
+        } catch { out.innerText = "Error"; }
+    },
+    async runFbPass() {
+        const password = document.getElementById('fb-pass-in').value;
+        const out = document.getElementById('fb-pass-out');
+        out.innerText = "Auditing...";
+        try {
+            const res = await fetch('http://localhost:5000/tool/fb_pass_audit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password })
+            });
+            const data = await res.json();
+            out.innerHTML = `Score: ${data.score}/${data.max_score}<br>${data.feedback.join(', ')}`;
+        } catch { out.innerText = "Error"; }
+    },
+    async runFbBreach() {
+        const identity = document.getElementById('fb-breach-id').value;
+        const out = document.getElementById('fb-breach-out');
+        out.innerText = "Searching DB...";
+        try {
+            const res = await fetch('http://localhost:5000/tool/fb_breach_check', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ identity })
+            });
+            const data = await res.json();
+            out.innerHTML = data.found ? `<span style="color:red">FOUND IN BREACH!</span>` : `<span style="color:lime">Safe (Simulated)</span>`;
+        } catch { out.innerText = "Error"; }
+    },
+    async runFb2FA() {
+        const out = document.getElementById('fb-2fa-out');
+        try {
+            const res = await fetch('http://localhost:5000/tool/fb_2fa_sim');
+            const data = await res.json();
+            out.innerHTML = `Code: <b style="font-size:1.2em">${data.code}</b><br>Expires in ${data.expiry}`;
+        } catch { out.innerText = "Error"; }
+    },
+    async runFbPrivacy() {
+        const out = document.getElementById('fb-privacy-out');
+        out.innerText = "Loading Checklist...";
+        try {
+            const res = await fetch('http://localhost:5000/tool/fb_privacy_check');
+            const data = await res.json();
+            out.innerHTML = "";
+            data.checklist.forEach(item => {
+                out.innerHTML += `<div>[ ] ${item.task}</div>`;
+            });
+        } catch { out.innerText = "Error"; }
     }
 };
 
