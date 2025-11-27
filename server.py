@@ -1,26 +1,17 @@
-import subprocess
-import sys
-import socket
-import threading
-import requests
-import hashlib
-import psutil
-import re
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from datetime import datetime
+import subprocess
+import sys
+import psutil
+import threading
+import socket
+import requests
+import hashlib
+import re
 
 app = Flask(__name__)
 CORS(app)
 
-# --- CORE SYSTEM ---
-@app.route('/status', methods=['GET'])
-def status():
-    return jsonify({
-        "status": "online", 
-        "os": sys.platform, 
-        "cpu": psutil.cpu_percent(),
-        "ram": psutil.virtual_memory().percent
 @app.route('/run_command', methods=['POST'])
 def run_command():
     data = request.json
