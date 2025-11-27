@@ -57,7 +57,6 @@ jobs:
           command: buildozer android debug
           buildozer_version: stable
           repository_root: .
-          docker_image: kivy/buildozer:latest
 
       - name: List bin directory
         run: ls -la bin/ || echo "bin directory not found"
